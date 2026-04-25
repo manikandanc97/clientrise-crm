@@ -66,7 +66,7 @@ export default function Sidebar() {
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium
                   ${
                     item.active
-                      ? "bg-blue-50 text-blue-600"
+                      ? "bg-emerald-50 text-emerald-700"
                       : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   }`}
               >
