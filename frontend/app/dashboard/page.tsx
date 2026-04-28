@@ -1,31 +1,23 @@
-"use client";
+// dashboard main page
 
-import ProtectedRoute from "@/components/auth/protected-route";
-import Sidebar from "@/components/dashboard/sidebar";
-import Topbar from "@/components/dashboard/topbar";
+import WelcomeHero from "@/components/dashboard/WelcomeHero";
+import StatsCards from "@/components/dashboard/StatsCards";
+import RecentActivities from "@/components/dashboard/RecentActivities";
+import SalesChart from "@/components/dashboard/SalesChart";
 
-export default function DashboardPage() {
+const DashboardPage = () => {
   return (
-    <ProtectedRoute>
-      <div className="flex bg-slate-100 min-h-screen">
-        <Sidebar />
+    <div className="space-y-6 p-6">
+      <WelcomeHero />
 
-        <div className="flex flex-col flex-1 md:pl-64">
-          <Topbar />
+      <StatsCards />
 
-          <main className="p-8">
-            <div className="bg-white shadow-sm p-8 border border-slate-200 rounded-3xl">
-              <h2 className="font-bold text-slate-900 text-2xl">
-                Welcome to ClientRise Dashboard 🔥
-              </h2>
-
-              <p className="mt-2 text-slate-500">
-                Premium CRM system for modern business growth.
-              </p>
-            </div>
-          </main>
-        </div>
+      <div className="gap-6 grid grid-cols-1 xl:grid-cols-2">
+        <SalesChart />
+        <RecentActivities />
       </div>
-    </ProtectedRoute>
+    </div>
   );
-}
+};
+
+export default DashboardPage;
