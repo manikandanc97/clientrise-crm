@@ -39,7 +39,7 @@ export default function LoginPage() {
 
       console.log(response);
 
-      toast.success("Login successful 🔥");
+      toast.success("Login successful");
       router.push("/dashboard");
     } catch (error: any) {
       console.log(error);
@@ -53,7 +53,7 @@ export default function LoginPage() {
   return (
     <PublicRoute>
       <AuthLayout
-        title="Welcome Back 👋"
+        title="Welcome Back"
         subtitle="Sign in to continue to your dashboard"
         footerText="Don't have an account?"
         footerLink="/register"

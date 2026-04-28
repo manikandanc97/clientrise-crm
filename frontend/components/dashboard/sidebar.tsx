@@ -16,35 +16,54 @@ const menuItems = [
   {
     title: "Dashboard",
     icon: LayoutDashboard,
+    href: "/dashboard",
     active: true,
   },
   {
     title: "Leads",
     icon: Users,
+    href: "/leads",
   },
   {
     title: "Customers",
     icon: UserRound,
+    href: "/customers",
   },
   {
     title: "Tasks",
     icon: CheckSquare,
+    href: "/tasks",
   },
   {
     title: "Pipeline",
     icon: KanbanSquare,
+    href: "/pipeline",
   },
   {
     title: "Quotations",
     icon: FileText,
+    href: "/quotations",
   },
   {
     title: "Reports",
     icon: BarChart3,
+    href: "/reports",
   },
 ];
 
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { logoutUser } from "@/lib/api/auth";
+
 export default function Sidebar() {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logoutUser();
+    router.push("/login");
+  };
+
   return (
     <aside className="hidden top-0 left-0 z-50 fixed md:flex flex-col bg-white/80 backdrop-blur-xl border-slate-200/60 border-r w-64 h-screen transition-all">
       <div className="flex flex-col p-4 h-full">
@@ -69,32 +88,43 @@ export default function Sidebar() {
         <nav className="flex-1 space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
+            const isActive = pathname === item.href || (item.href === "/dashboard" && pathname === "/dashboard");
 
             return (
-              <button
+              <Link
                 key={item.title}
+                href={item.href || "#"}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-sm font-medium group
                   ${
-                    item.active
+                    isActive
                       ? "bg-emerald-50 text-emerald-700 shadow-sm shadow-emerald-100/50"
                       : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
                   }`}
               >
-                <Icon className={`w-5 h-5 transition-colors ${item.active ? "text-emerald-600" : "text-slate-400 group-hover:text-slate-600"}`} />
+                <Icon className={`w-5 h-5 transition-colors ${isActive ? "text-emerald-600" : "text-slate-400 group-hover:text-slate-600"}`} />
                 {item.title}
-              </button>
+              </Link>
             );
           })}
         </nav>
 
         {/* Bottom */}
         <div className="space-y-1 pt-4 border-slate-100 border-t">
-          <button className="flex items-center gap-3 hover:bg-slate-50 px-4 py-3 rounded-xl w-full font-medium text-slate-500 text-sm transition-all group">
-            <Settings className="group-hover:rotate-45 w-5 h-5 text-slate-400 transition-transform duration-500 group-hover:text-slate-600" />
+          <Link
+            href="/settings"
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl w-full font-medium text-sm transition-all group
+              ${pathname === "/settings" 
+                ? "bg-emerald-50 text-emerald-700 shadow-sm shadow-emerald-100/50" 
+                : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"}`}
+          >
+            <Settings className={`group-hover:rotate-45 w-5 h-5 transition-all duration-500 ${pathname === "/settings" ? "text-emerald-600" : "text-slate-400 group-hover:text-slate-600"}`} />
             Settings
-          </button>
+          </Link>
 
-          <button className="flex items-center gap-3 hover:bg-red-50 px-4 py-3 rounded-xl w-full font-medium text-slate-500 hover:text-red-600 text-sm transition-all group">
+          <button 
+            onClick={handleLogout}
+            className="flex items-center gap-3 hover:bg-red-50 px-4 py-3 rounded-xl w-full font-medium text-slate-500 hover:text-red-600 text-sm transition-all group"
+          >
             <LogOut className="w-5 h-5 text-slate-400 transition-colors group-hover:text-red-500" />
             Logout
           </button>

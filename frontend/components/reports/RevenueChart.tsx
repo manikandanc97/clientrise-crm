@@ -9,19 +9,26 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from "recharts";
-import { salesChartData } from "@/data/dashboard-data";
-import { MoreHorizontal } from "lucide-react";
-
+import { MoreHorizontal, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-const SalesChart = () => {
+const data = [
+  { name: "Jan", revenue: 32000 },
+  { name: "Feb", revenue: 38000 },
+  { name: "Mar", revenue: 35000 },
+  { name: "Apr", revenue: 42000 },
+  { name: "May", revenue: 48000 },
+  { name: "Jun", revenue: 45000 },
+];
+
+const RevenueChart = () => {
   return (
     <Card className="bg-white rounded-[2.5rem] border-slate-200/60 shadow-sm">
       <CardHeader className="flex flex-row items-center justify-between p-8 pb-4">
         <div className="space-y-1">
-          <CardTitle className="font-bold text-slate-900 text-xl tracking-tight">Sales Overview</CardTitle>
-          <CardDescription className="text-slate-400 text-sm mt-1">Monthly performance tracker</CardDescription>
+          <CardTitle className="font-bold text-slate-900 text-xl tracking-tight">Revenue Analysis</CardTitle>
+          <CardDescription className="text-slate-400 text-sm mt-1">Monthly revenue trends for 2024</CardDescription>
         </div>
         
         <Button variant="ghost" size="icon" className="rounded-xl transition-colors">
@@ -32,11 +39,11 @@ const SalesChart = () => {
       <CardContent className="p-8 pt-0">
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={salesChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
-                <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="#0ea5e9" stopOpacity={0}/>
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -62,11 +69,11 @@ const SalesChart = () => {
               />
               <Area 
                 type="monotone" 
-                dataKey="value" 
-                stroke="#10b981" 
+                dataKey="revenue" 
+                stroke="#0ea5e9" 
                 strokeWidth={3}
                 fillOpacity={1} 
-                fill="url(#colorValue)" 
+                fill="url(#colorRevenue)" 
               />
             </AreaChart>
           </ResponsiveContainer>
@@ -76,4 +83,4 @@ const SalesChart = () => {
   );
 };
 
-export default SalesChart;
+export default RevenueChart;
