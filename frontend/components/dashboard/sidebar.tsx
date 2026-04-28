@@ -55,6 +55,18 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { logoutUser } from "@/lib/api/auth";
 
+import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -121,13 +133,31 @@ export default function Sidebar() {
             Settings
           </Link>
 
-          <button 
-            onClick={handleLogout}
-            className="flex items-center gap-3 hover:bg-red-50 px-4 py-3 rounded-xl w-full font-medium text-slate-500 hover:text-red-600 text-sm transition-all group"
-          >
-            <LogOut className="w-5 h-5 text-slate-400 transition-colors group-hover:text-red-500" />
-            Logout
-          </button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <button className="flex items-center gap-3 hover:bg-red-50 px-4 py-3 rounded-xl w-full font-medium text-slate-500 hover:text-red-600 text-sm transition-all group">
+                <LogOut className="w-5 h-5 text-slate-400 transition-colors group-hover:text-red-500" />
+                Logout
+              </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="rounded-[2rem] border-slate-200/60 bg-white/95 backdrop-blur-xl shadow-2xl">
+              <AlertDialogHeader>
+                <AlertDialogTitle className="text-2xl font-bold text-slate-900 tracking-tight">Confirm Logout</AlertDialogTitle>
+                <AlertDialogDescription className="text-slate-500 mt-2">
+                  Are you sure you want to log out? You will need to sign in again to access your CRM dashboard.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="mt-6 gap-3 sm:gap-0">
+                <AlertDialogCancel className="rounded-2xl border-slate-200 h-11 px-6 font-bold text-slate-600 hover:bg-slate-50 transition-all">Cancel</AlertDialogCancel>
+                <AlertDialogAction 
+                  onClick={handleLogout}
+                  className="rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white shadow-lg shadow-red-100 h-11 px-6 font-bold transition-all active:scale-95 border-none"
+                >
+                  Logout Now
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
     </aside>
